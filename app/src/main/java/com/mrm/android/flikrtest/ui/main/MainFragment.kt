@@ -18,15 +18,18 @@ import androidx.navigation.fragment.findNavController
 import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class MainFragment : Fragment() {
 
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by lazy{
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
     }
 
@@ -38,6 +41,9 @@ class MainFragment : Fragment() {
         binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener{
             this.findNavController().navigate(MainFragmentDirections.actionPhotoDetails(it))
         })
+
+
+
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel

@@ -11,6 +11,12 @@ interface FavoritePhotoDao{
 
     @Query("select * from APIPhoto")
     suspend fun getFavorites(): List<APIPhoto>
+
+    @Query("delete from APIPhoto where media is :media")
+    suspend fun deleteFavorite(media: String)
+
+    @Query("delete from APIPhoto")
+    suspend fun clearFavorites()
 }
 
 @Database(entities = [APIPhoto::class], version = 1)

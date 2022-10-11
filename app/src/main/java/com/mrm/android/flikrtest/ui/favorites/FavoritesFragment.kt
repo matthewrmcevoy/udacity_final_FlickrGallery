@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mrm.android.flikrtest.databinding.FragmentFavoritesBinding
+import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class FavoritesFragment: Fragment() {
     private lateinit var viewModel: FavoritesViewModel
@@ -27,6 +28,7 @@ class FavoritesFragment: Fragment() {
         binding.favPhotoGrid.adapter = FavPhotoGridAdapter(FavPhotoGridAdapter.OnClickListener{
             this.findNavController().navigate(FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(it))
         })
+
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel

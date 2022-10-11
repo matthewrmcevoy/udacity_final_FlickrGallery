@@ -39,6 +39,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         getPhotos(filter)
+        Log.i("mvm","init was run")
         _mTest.value = "https://live.staticflickr.com/65535/52363257257_9e1239c5f6_m.jpg"
 
     }

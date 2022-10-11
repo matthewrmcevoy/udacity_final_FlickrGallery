@@ -37,6 +37,25 @@ class DetailFragment : Fragment() {
         binding.imageButton3.setOnClickListener {
             viewModel.addFavorite(apiPhoto)
         }
+
+        viewModel.isFavorite.observe(viewLifecycleOwner) {
+            when (it) {
+                true -> {
+                    binding.imageButton3.visibility = View.GONE
+                    binding.removeFavorite.visibility = View.VISIBLE
+                    binding.removeTxt.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.imageButton3.visibility = View.VISIBLE
+                    binding.removeFavorite.visibility = View.GONE
+                    binding.removeTxt.visibility = View.GONE
+                }
+            }
+        }
+
+        binding.removeFavorite.setOnClickListener {
+            viewModel.deleteFavorite(apiPhoto)
+        }
         return binding.root
     }
 }

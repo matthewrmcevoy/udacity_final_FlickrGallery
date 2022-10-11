@@ -24,15 +24,5 @@
 
     </ImageView>
 
-    <ImageButton
-        android:id="@+id/save_image_details_bttn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#00FFFFFF"
-        android:backgroundTintMode="add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/stat_notify_more"
-        app:tint="#FFFFFF" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

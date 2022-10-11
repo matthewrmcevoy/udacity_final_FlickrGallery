@@ -20,13 +20,19 @@ class DetailViewModel(apiPhoto: APIPhoto, application: Application): AndroidView
     private val database = getDatabase(application)
     var favoritePhotos = mutableListOf<APIPhoto>()
 
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean>
+    get() = _isFavorite
+
     private lateinit var dbFavoritePhotos : List<APIPhoto>
 
     init{
         _selectedPhoto.value = apiPhoto
         viewModelScope.launch {
             dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
         }
+
     }
 
     fun addFavorite(apiPhoto: APIPhoto){
@@ -34,7 +40,16 @@ class DetailViewModel(apiPhoto: APIPhoto, application: Application): AndroidView
         viewModelScope.launch {
             database.favoritePhotoDao.addFavoritePhoto(apiPhoto)
             dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
         }
         Log.i("DVM","List of saved favorites ${dbFavoritePhotos.reversed()}")
+    }
+
+    fun deleteFavorite(apiPhoto: APIPhoto){
+        viewModelScope.launch {
+            database.favoritePhotoDao.deleteFavorite(apiPhoto.media)
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
+        }
     }
 }

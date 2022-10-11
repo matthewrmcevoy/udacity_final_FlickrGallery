@@ -1,5 +1,6 @@
 package com.mrm.android.flikrtest.ui.main
 
+import android.app.Application
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.opengl.Visibility
@@ -11,9 +12,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.api.APIPhoto
+import com.mrm.android.flikrtest.dB.getDatabase
 import com.mrm.android.flikrtest.databinding.GridViewItemBinding
 import kotlinx.android.synthetic.main.grid_view_item.view.*
 import kotlinx.android.synthetic.main.photo_detail_fragment.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
 
 class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapter<APIPhoto, PhotoGridAdapter.APIPhotoViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(
@@ -28,9 +33,6 @@ class PhotoGridAdapter(private val onClickListener: OnClickListener) : ListAdapt
         holder.bind(apiPhoto)
         holder.itemView.setOnClickListener{
             onClickListener.onClick(apiPhoto)
-        }
-        holder.itemView.save_image_details_bttn.setOnClickListener {
-            holder.itemView.save_image_details_bttn.setBackgroundColor(Color.RED)
         }
     }
 
