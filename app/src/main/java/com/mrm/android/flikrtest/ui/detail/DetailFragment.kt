@@ -45,12 +45,10 @@ class DetailFragment : Fragment() {
                 true -> {
                     binding.imageButton3.visibility = View.GONE
                     binding.removeFavorite.visibility = View.VISIBLE
-                    binding.removeTxt.visibility = View.VISIBLE
                 }
                 else -> {
                     binding.imageButton3.visibility = View.VISIBLE
                     binding.removeFavorite.visibility = View.GONE
-                    binding.removeTxt.visibility = View.GONE
                 }
             }
         }

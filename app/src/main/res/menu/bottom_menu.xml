@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/mainFragment"
-        android:icon="@android:drawable/ic_dialog_dialer"
+        android:icon="@drawable/home"
         android:title="Main" />
     <item
         android:id="@+id/favoritesFragment"
@@ -12,6 +12,6 @@
         android:title="Favorites" />
     <item
         android:id="@+id/detailFragment"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:title="Details" />
+        android:icon="@drawable/settings"
+        android:title="Settings" />
 </menu>
