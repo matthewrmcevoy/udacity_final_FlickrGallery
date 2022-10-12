@@ -68,7 +68,7 @@ class FavPhotoGridAdapter(private val viewModel: FavoritesViewModel, private val
                         database.favoritePhotoDao.deleteFavorite(apiPhoto.media)
                         viewModel.updateFavorites()
                     }
-                    updateAdapter(position)
+                    //updateAdapter(position)
 
                 }
             }
