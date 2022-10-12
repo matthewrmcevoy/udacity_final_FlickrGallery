@@ -24,5 +24,12 @@
 
     </ImageView>
 
+    <TextView
+        android:id="@+id/txtAnchor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="invisible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

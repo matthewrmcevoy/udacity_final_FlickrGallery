@@ -38,7 +38,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentMainBinding.inflate(inflater)
-        binding.photosGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener{
+        binding.photosGrid.adapter = PhotoGridAdapter(requireContext(),PhotoGridAdapter.OnClickListener{
             this.findNavController().navigate(MainFragmentDirections.actionPhotoDetails(it))
         })
 

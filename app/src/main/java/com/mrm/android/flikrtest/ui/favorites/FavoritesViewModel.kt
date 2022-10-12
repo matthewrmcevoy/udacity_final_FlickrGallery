@@ -1,10 +1,7 @@
 package com.mrm.android.flikrtest.ui.favorites
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.mrm.android.flikrtest.api.APIPhoto
 import com.mrm.android.flikrtest.dB.getDatabase
 import kotlinx.coroutines.launch
@@ -24,5 +21,12 @@ class FavoritesViewModel : ViewModel() {
             _favorites.value = favPhotos
         }
 
+    }
+
+    fun updateFavorites(){
+        viewModelScope.launch{
+            favPhotos = database.favoritePhotoDao.getFavorites()
+            _favorites.value = favPhotos
+        }
     }
 }

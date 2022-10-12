@@ -7,7 +7,7 @@ import com.mrm.android.flikrtest.api.APIPhoto
 @Dao
 interface FavoritePhotoDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addFavoritePhoto(photo: APIPhoto)
+    fun addFavoritePhoto(photo: APIPhoto)
 
     @Query("select * from APIPhoto")
     suspend fun getFavorites(): List<APIPhoto>
