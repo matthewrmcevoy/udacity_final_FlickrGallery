@@ -11,6 +11,8 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.findNavController
 import com.mrm.android.flikrtest.databinding.PhotoDetailFragmentBinding
 import com.mrm.android.flikrtest.ui.main.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 class DetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel

@@ -10,6 +10,8 @@ import com.mrm.android.flikrtest.api.APIPhoto
 import com.mrm.android.flikrtest.dB.FavoritePhotosDatabase
 import com.mrm.android.flikrtest.dB.getDatabase
 import com.mrm.android.flikrtest.ui.main.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DetailViewModel(apiPhoto: APIPhoto, application: Application): AndroidViewModel(application) {
@@ -37,11 +39,13 @@ class DetailViewModel(apiPhoto: APIPhoto, application: Application): AndroidView
 
     fun addFavorite(apiPhoto: APIPhoto){
         favoritePhotos.add(apiPhoto)
-        viewModelScope.launch {
+        //viewModelScope.launch{
+        CoroutineScope(Dispatchers.IO).launch{
             database.favoritePhotoDao.addFavoritePhoto(apiPhoto)
             dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
-            _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
         }
+            _isFavorite.value = true
+
         Log.i("DVM","List of saved favorites ${dbFavoritePhotos.reversed()}")
     }
 

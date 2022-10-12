@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/favorite-40px.xml" value="0.1615" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_favorites.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_main.xml" value="0.33" />
