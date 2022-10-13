@@ -7,6 +7,7 @@
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/favorite-40px.xml" value="0.1615" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/favorite.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/favorite2.xml" value="0.1" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/favorite_fill.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/heart_minus-40px.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/heart_plus.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/home-48px.xml" value="0.1" />
@@ -15,6 +16,7 @@
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_favorites.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_main.xml" value="0.33" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/grid_view_item.xml" value="0.5" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/junk_copy.xml" value="0.3421875" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/photo_detail_fragment.xml" value="0.33" />

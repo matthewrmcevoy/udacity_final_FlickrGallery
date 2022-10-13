@@ -10,10 +10,16 @@
         android:label="MainFragment" >
         <action
             android:id="@+id/action_photoDetails"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/detailFragment"
+        android:id="@+id/detailsFragment"
         android:name="com.mrm.android.flikrtest.ui.detail.DetailFragment"
         android:label="DetailFragment" >
         <argument android:name="selectedPhoto"
@@ -21,6 +27,9 @@
         <action
             android:id="@+id/action_detailFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -28,6 +37,13 @@
         android:label="FavoritesFragment" >
         <action
             android:id="@+id/action_favoritesFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mrm.android.flikrtest.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>
