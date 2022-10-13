@@ -56,4 +56,12 @@ class DetailViewModel(apiPhoto: APIPhoto, application: Application): AndroidView
             _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
         }
     }
+
+    fun isFavorite(apiPhoto: APIPhoto): Boolean{
+        viewModelScope.launch{
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
+        }
+        return _isFavorite.value == true
+    }
 }

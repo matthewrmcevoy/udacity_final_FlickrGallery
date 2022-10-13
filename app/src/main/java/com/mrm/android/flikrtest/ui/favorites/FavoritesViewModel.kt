@@ -1,12 +1,14 @@
 package com.mrm.android.flikrtest.ui.favorites
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.mrm.android.flikrtest.api.APIPhoto
 import com.mrm.android.flikrtest.dB.getDatabase
 import kotlinx.coroutines.launch
-
+enum class FavoritesLoadStatus{LOADING, DONE, EMPTY}
 class FavoritesViewModel : ViewModel() {
+    val favoritesStatus= MutableLiveData<FavoritesLoadStatus>()
 
     lateinit var favPhotos: List<APIPhoto>
     private val database = getDatabase(Application())
@@ -15,10 +17,21 @@ class FavoritesViewModel : ViewModel() {
     val favorites: LiveData<List<APIPhoto>>
     get()=_favorites
 
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean>
+        get() = _isFavorite
+
+
     init{
+        favoritesStatus.value=FavoritesLoadStatus.LOADING
         viewModelScope.launch {
             favPhotos = database.favoritePhotoDao.getFavorites()
             _favorites.value = favPhotos
+            if(favPhotos.isEmpty()){
+                favoritesStatus.value = FavoritesLoadStatus.EMPTY
+            }else{
+                favoritesStatus.value=FavoritesLoadStatus.DONE
+            }
         }
 
     }
@@ -27,6 +40,20 @@ class FavoritesViewModel : ViewModel() {
         viewModelScope.launch{
             favPhotos = database.favoritePhotoDao.getFavorites()
             _favorites.value = favPhotos
+            if(favPhotos.isEmpty()){
+                favoritesStatus.value = FavoritesLoadStatus.EMPTY
+            }else{
+                favoritesStatus.value=FavoritesLoadStatus.DONE
+            }
         }
+    }
+
+    fun isFavorite(apiPhoto: APIPhoto): Boolean{
+        viewModelScope.launch{
+            favPhotos = database.favoritePhotoDao.getFavorites()
+        }
+        _isFavorite.value = favPhotos.contains(apiPhoto)
+        Log.i("mvm", "${_isFavorite.value}")
+        return _isFavorite.value == true
     }
 }

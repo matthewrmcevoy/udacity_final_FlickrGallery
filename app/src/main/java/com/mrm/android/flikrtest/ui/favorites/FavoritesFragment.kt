@@ -47,6 +47,10 @@ class FavoritesFragment: Fragment() {
                     .navigate(FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(it))
             })
 
+        binding.addFavorites.setOnClickListener {
+            this.findNavController().navigate(FavoritesFragmentDirections.actionFavoritesFragmentToMainFragment())
+        }
+
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 

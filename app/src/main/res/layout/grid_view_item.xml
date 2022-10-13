@@ -6,10 +6,23 @@
         <variable
             name="photo"
             type="com.mrm.android.flikrtest.api.APIPhoto" />
+        <variable
+            name="viewModel"
+            type="com.mrm.android.flikrtest.ui.favorites.FavoritesViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
+    <ProgressBar
+        android:id="@+id/progressBarImg"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/flikr_photo"
@@ -30,6 +43,29 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/fav_add_main_bttn"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="#80000000"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/flikr_photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/favorite2" />
+
+    <ImageView
+        android:id="@+id/fav_add_remove_bttn"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="#80000000"
+        android:tint="#FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/flikr_photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/favorite_fill" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

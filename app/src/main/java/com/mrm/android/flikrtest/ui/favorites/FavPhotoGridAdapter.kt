@@ -46,8 +46,25 @@ class FavPhotoGridAdapter(private val viewModel: FavoritesViewModel, private val
     override fun onBindViewHolder(holder: APIPhotoViewHolder, position: Int) {
         val apiPhoto = getItem(position)
         holder.bind(apiPhoto)
+        if(viewModel.isFavorite(apiPhoto)){
+            holder.itemView.fav_add_main_bttn.visibility = View.GONE
+            holder.itemView.fav_add_remove_bttn.visibility = View.VISIBLE
+        }else{
+            holder.itemView.fav_add_main_bttn.visibility = View.VISIBLE
+            holder.itemView.fav_add_remove_bttn.visibility = View.GONE
+        }
         holder.itemView.setOnClickListener{
             onClickListener.onClick(apiPhoto)
+        }
+        holder.itemView.fav_add_main_bttn.setOnClickListener {
+            null
+        }
+        holder.itemView.fav_add_remove_bttn.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch{
+                database.favoritePhotoDao.deleteFavorite(apiPhoto.media)
+                viewModel.updateFavorites()
+            }
+            updateAdapter(position)
         }
         holder.itemView.setOnLongClickListener{
             Log.i("adapter","$apiPhoto")

@@ -21,5 +21,20 @@
         app:spanCount="2"
         tools:itemCount="15"
         tools:listitem="@layout/grid_view_item"/>
+
+    <TextView
+        android:id="@+id/addFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableBottom="@drawable/heart_plus"
+        android:drawableTint="#673AB7"
+        android:text="Add Some Favorites!"
+        android:textSize="20sp"
+        app:favoritesLoadStatus="@{viewModel.favoritesStatus}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -24,6 +24,10 @@ class SettingsFragment : Fragment(){
     ): View? {
         val binding = FragmentSettingsBinding.inflate(inflater)
 
+        binding.wipeFavBttn.setOnClickListener {
+            viewModel.clearFavorites()
+        }
+
         return binding.root
     }
 }

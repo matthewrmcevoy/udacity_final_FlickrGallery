@@ -10,13 +10,14 @@ import com.mrm.android.flikrtest.dB.getDatabase
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
+enum class APIStatus{LOADING, DONE, ERROR, EMPTY}
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 //    private val _photoList = MutableLiveData<List<PhotoImage>>()
 //    val photoList: LiveData<List<PhotoImage>>
 //        get()=_photoList
 
-
+    val status = MutableLiveData<APIStatus>()
 
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
@@ -36,9 +37,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val favoritePhotos: MutableList<APIPhoto> = mutableListOf()
     private val database = getDatabase(application)
 
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean>
+        get() = _isFavorite
+
+    private lateinit var dbFavoritePhotos : List<APIPhoto>
+
 
     init {
+        status.value = APIStatus.LOADING
+        viewModelScope.launch {
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+        }
         getPhotos(filter)
+
         Log.i("mvm","init was run")
         _mTest.value = "https://live.staticflickr.com/65535/52363257257_9e1239c5f6_m.jpg"
 
@@ -79,6 +91,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 //    }}
         viewModelScope.launch {
             try{
+                status.value = APIStatus.LOADING
                 val response: Response<String> = FlikrApi.retrofitService.getPhotos(filter)
                 //Log.i("ViewModel", "${response.body()}")
                 val pList = parseAPIPhotosJsonResult(JSONObject(response.body()!!))
@@ -87,7 +100,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _photoList.value = pList
                 _mTest.value = photoList.value!![1].media
                 Log.i("ViewModel","photoList ${photoList.value!![1].media}")
+                if(pList.size == 0){
+                    status.value = APIStatus.EMPTY
+                }else{
+                    status.value = APIStatus.DONE
+                }
+
             }catch(e: Exception){
+                status.value = APIStatus.ERROR
                 Log.i("ViewModel","${e.message}")
             }
 
@@ -96,4 +116,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun updatePhotoFilter(filter: String){
         getPhotos(filter)
     }
+    fun isFavorite(apiPhoto: APIPhoto): Boolean{
+        viewModelScope.launch{
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+        }
+        _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
+        Log.i("mvm", "${_isFavorite.value}")
+        return _isFavorite.value == true
     }
+}

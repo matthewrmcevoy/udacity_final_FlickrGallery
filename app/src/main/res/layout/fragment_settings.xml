@@ -33,8 +33,10 @@
 
     <View
         android:id="@+id/divider"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="2dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:background="?android:attr/listDivider"
         android:backgroundTint="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,9 +45,11 @@
 
     <View
         android:id="@+id/divider2"
-        android:layout_width="407dp"
+        android:layout_width="0dp"
         android:layout_height="2dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="6dp"
+        android:layout_marginEnd="32dp"
         android:background="?android:attr/listDivider"
         android:backgroundTint="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,44 +57,42 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/wipe_fav_bttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="#673AB7"
-        android:padding="9dp"
+        android:drawableRight="@drawable/heart_minus"
+        android:drawableTint="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
         android:text="Wipe Favorites"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/divider" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/clr_srch_hist_bttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="#673AB7"
-        android:padding="9dp"
+        android:drawableRight="@drawable/manage_search"
+        android:drawableTint="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
         android:text="Clear Search History"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="#673AB7"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView3"
-        app:srcCompat="@drawable/heart_minus"
-        app:tint="#FDFDFD" />
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
     <TextView
         android:id="@+id/textView4"
@@ -100,28 +102,38 @@
         android:text="Search History"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/wipe_fav_bttn" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="#673AB7"
+        app:tint="#673AB7"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView4"
         app:srcCompat="@drawable/manage_search" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:background="#673AB7"
-        app:layout_constraintBottom_toBottomOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView5"
-        app:srcCompat="@android:drawable/ic_menu_search" />
+    <ProgressBar
+        android:id="@+id/favClearPBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:favStat="@{viewModel.favSettingStat}"
+        app:layout_constraintBottom_toBottomOf="@+id/wipe_fav_bttn"
+        app:layout_constraintEnd_toStartOf="@+id/wipe_fav_bttn"
+        app:layout_constraintTop_toTopOf="@+id/wipe_fav_bttn" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/clr_srch_hist_bttn"
+        app:layout_constraintEnd_toStartOf="@+id/clr_srch_hist_bttn"
+        app:layout_constraintTop_toTopOf="@+id/clr_srch_hist_bttn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
