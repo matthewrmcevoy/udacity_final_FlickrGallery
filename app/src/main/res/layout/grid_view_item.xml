@@ -49,23 +49,21 @@
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:background="#80000000"
-        android:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/flikr_photo"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/favorite2" />
+        app:srcCompat="@drawable/favorite2"
+        app:tint="#FFFFFF" />
 
     <ImageView
         android:id="@+id/fav_add_remove_bttn"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:background="#80000000"
-        android:tint="#FFFFFF"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/flikr_photo"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/favorite_fill" />
+        app:srcCompat="@drawable/favorite_fill"
+        app:tint="#FFFFFF" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -40,7 +40,6 @@
             android:backgroundTint="#FFFFFF"
             android:completionHint="Recent Searches"
             android:completionThreshold="0"
-            android:defaultFocusHighlightEnabled="true"
             android:hint="Search Terms"
             android:singleLine="true"
             android:textColor="#673AB7"
@@ -90,12 +89,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:visibility="gone"
             android:indeterminate="true"
-            app:mainLoadStatus="@{viewModel.status}"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tag_search_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/tag_search_txt"
+            app:mainLoadStatus="@{viewModel.status}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

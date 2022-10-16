@@ -60,11 +60,12 @@ class FavPhotoGridAdapter(private val viewModel: FavoritesViewModel, private val
             null
         }
         holder.itemView.fav_add_remove_bttn.setOnClickListener {
+            updateAdapter(position)
             CoroutineScope(Dispatchers.IO).launch{
                 database.favoritePhotoDao.deleteFavorite(apiPhoto.media)
                 viewModel.updateFavorites()
             }
-            updateAdapter(position)
+
         }
         holder.itemView.setOnLongClickListener{
             Log.i("adapter","$apiPhoto")

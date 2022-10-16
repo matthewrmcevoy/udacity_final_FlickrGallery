@@ -3,6 +3,7 @@ package com.mrm.android.flikrtest.dB
 import android.content.Context
 import androidx.room.*
 import com.mrm.android.flikrtest.api.APIPhoto
+import com.mrm.android.flikrtest.searchhist.SearchTerm
 
 @Dao
 interface FavoritePhotoDao{
@@ -36,4 +37,38 @@ fun getDatabase(context: Context): FavoritePhotosDatabase{
         ).build()
     }
     return INSTANCE
+}
+
+@Dao
+interface SearchHistoryDao{
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addSearchTerm(searchTerm: SearchTerm)
+
+    @Query("select * from SearchTerm")
+    suspend fun getSearchHistory(): List<SearchTerm>
+
+    @Query("delete from SearchTerm where term is :term")
+    suspend fun deleteSearchTerm(term: String)
+
+    @Query("delete from SearchTerm")
+    suspend fun clearSearchHistory()
+
+}
+
+@Database(entities = [SearchTerm::class], version = 1)
+abstract class SearchHistoryDatabase: RoomDatabase() {
+    abstract val searchHistoryDao: SearchHistoryDao
+}
+
+private lateinit var SH_INSTANCE: SearchHistoryDatabase
+
+fun getSearchHistoryDB(context: Context): SearchHistoryDatabase{
+    if(!::SH_INSTANCE.isInitialized){
+        SH_INSTANCE = Room.databaseBuilder(
+            context.applicationContext,
+            SearchHistoryDatabase::class.java,
+            "searchHistory"
+        ).build()
+    }
+    return SH_INSTANCE
 }

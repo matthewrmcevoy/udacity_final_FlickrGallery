@@ -26,8 +26,9 @@
         android:layout_marginTop="56dp"
         android:drawableLeft="@drawable/favorite_fill"
         android:drawableTint="#673AB7"
-        android:text="Favorites"
-        android:textSize="24sp"
+        android:gravity="bottom"
+        android:text="@string/fav_label"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
@@ -60,80 +61,55 @@
         android:id="@+id/wipe_fav_bttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#673AB7"
+        android:background="@android:drawable/btn_default"
         android:drawableRight="@drawable/heart_minus"
-        android:drawableTint="#FFFFFF"
+        android:drawableTint="#673AB7"
         android:gravity="center_vertical"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
-        android:text="Wipe Favorites"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/wipe_fav_txt"
+        android:textColor="#673AB7"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/divider" />
 
     <TextView
         android:id="@+id/clr_srch_hist_bttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#673AB7"
+        android:background="@android:drawable/btn_default"
         android:drawableRight="@drawable/manage_search"
-        android:drawableTint="#FFFFFF"
+        android:drawableTint="#673AB7"
         android:gravity="center_vertical"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
         android:text="Clear Search History"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#673AB7"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Search History"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/wipe_fav_bttn" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/imageView6" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:tint="#673AB7"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView4"
-        app:srcCompat="@drawable/manage_search" />
-
-    <ProgressBar
-        android:id="@+id/favClearPBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="gone"
-        app:favStat="@{viewModel.favSettingStat}"
-        app:layout_constraintBottom_toBottomOf="@+id/wipe_fav_bttn"
-        app:layout_constraintEnd_toStartOf="@+id/wipe_fav_bttn"
-        app:layout_constraintTop_toTopOf="@+id/wipe_fav_bttn" />
-
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/clr_srch_hist_bttn"
-        app:layout_constraintEnd_toStartOf="@+id/clr_srch_hist_bttn"
-        app:layout_constraintTop_toTopOf="@+id/clr_srch_hist_bttn" />
+        app:layout_constraintTop_toBottomOf="@+id/wipe_fav_bttn"
+        app:srcCompat="@drawable/manage_search"
+        app:tint="#673AB7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,6 +7,10 @@ import com.mrm.android.flikrtest.api.APIPhoto
 import com.mrm.android.flikrtest.api.FlikrApi
 import com.mrm.android.flikrtest.api.parseAPIPhotosJsonResult
 import com.mrm.android.flikrtest.dB.getDatabase
+import com.mrm.android.flikrtest.dB.getSearchHistoryDB
+import com.mrm.android.flikrtest.searchhist.SearchTerm
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
@@ -34,8 +38,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var filter = ""
 
     val recentSearch:MutableList<String> = mutableListOf()
+
+
     val favoritePhotos: MutableList<APIPhoto> = mutableListOf()
     private val database = getDatabase(application)
+    private val searchHistDatabase = getSearchHistoryDB(application)
 
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite: LiveData<Boolean>
@@ -45,9 +52,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     init {
+
         status.value = APIStatus.LOADING
         viewModelScope.launch {
             dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            val searchList = searchHistDatabase.searchHistoryDao.getSearchHistory()
+            for(i in searchList){
+                if(!recentSearch.contains(i.term)){
+                    recentSearch.add(i.term)
+                }
+            }
         }
         getPhotos(filter)
 
@@ -60,13 +74,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if(recentSearch.contains(searchString) || searchString =="" ){
             null
         }else{
-            if(recentSearch.size <= 4 ){
-                recentSearch.add(0,searchString)
-            }else{
-                recentSearch.add(0, searchString)
-                recentSearch.removeAt(5)
+            val newSearchTerm= SearchTerm(searchString)
+            CoroutineScope(Dispatchers.IO).launch{
+                searchHistDatabase.searchHistoryDao.addSearchTerm(newSearchTerm)
+                val searchList = searchHistDatabase.searchHistoryDao.getSearchHistory()
+                for(i in searchList){
+                    if(recentSearch.contains(i.term)){
+                        null
+                    }else{
+                        recentSearch.add(0, searchString)
+                    }
+                }
             }
+        }
     }
+    fun wipeSearch(){
+        viewModelScope.launch{
+            searchHistDatabase.searchHistoryDao.clearSearchHistory()
+        }
     }
 
     fun addFavorite(apiPhoto: APIPhoto){

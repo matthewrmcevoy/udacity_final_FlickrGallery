@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">FlikrTest</string>
+    <string name="app_name">Flickr Gallery</string>
+
+    <!--Settings Fragment Messages-->
+    <string name="search_clr">Search History Cleared!</string>
+    <string name="search_empty">Search History is Empty!</string>
+    <string name="fav_clr">Favorites Cleared!</string>
+    <string name="fav_empty">Favorites is Empty!</string>
+
+    <!--Settings Fragment Layout-->
+    <string name="fav_label">Favorites</string>
+    <string name="wipe_fav_txt">Wipe Favorites</string>
+    <string name="search_hist_label">Search History</string>
+    <string name="clr_srch_hist">Clear Search History</string>
 </resources>

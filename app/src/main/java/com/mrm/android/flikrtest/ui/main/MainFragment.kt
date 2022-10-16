@@ -19,6 +19,8 @@ import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.photo_detail_fragment.view.*
+import kotlinx.android.synthetic.main.search_history.view.*
 
 class MainFragment : Fragment() {
 
@@ -50,11 +52,12 @@ class MainFragment : Fragment() {
 
         var searchText:String = ""
         val actv:AutoCompleteTextView = binding.root.findViewById(R.id.tag_search_txt)
-        val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history, viewModel.recentSearch)
+        val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history, R.id.search_tv , viewModel.recentSearch)
         actv.setAdapter(adapter)
 
         actv.setOnClickListener{
             actv.showDropDown()
+
         }
 
         actv.setOnKeyListener { view, i, keyEvent ->
@@ -62,7 +65,7 @@ class MainFragment : Fragment() {
                 searchText = tag_search_txt.text.toString()
                 viewModel.addSearch(searchText)
                 viewModel.updatePhotoFilter(searchText)
-                val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history, viewModel.recentSearch)
+                //val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history,R.id.search_tv ,viewModel.recentSearch)
                 actv.setAdapter(adapter)
 
 
@@ -78,10 +81,9 @@ class MainFragment : Fragment() {
         actv.setOnItemClickListener { adapterView, view, i, l ->
             var selectedItem = adapterView.getItemAtPosition(i) as String
             Log.i("selected", selectedItem)
+            Log.i("selected","${view.search_rmv_bttn} , $l")
             viewModel.updatePhotoFilter(selectedItem)
-
         }
-
 
 
         binding.imageButton.setOnClickListener {
@@ -90,7 +92,7 @@ class MainFragment : Fragment() {
 
             Log.i("Fragment","recent searches are ${viewModel.recentSearch}")
             viewModel.updatePhotoFilter(searchText)
-            val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history, viewModel.recentSearch)
+            //val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history, viewModel.recentSearch)
             actv.setAdapter(adapter)
 
 
