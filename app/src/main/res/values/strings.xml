@@ -12,4 +12,21 @@
     <string name="wipe_fav_txt">Wipe Favorites</string>
     <string name="search_hist_label">Search History</string>
     <string name="clr_srch_hist">Clear Search History</string>
+
+    <!--Main Fragment Layout-->
+    <string name="empty">Such Empty</string>
+    <string name="search_bar">Search</string>
+
+    <!--Favorites Fragment Layout -->
+    <string name="favorites_empty">Add Some Favorites!</string>
+
+    <!--Binding Strings-->
+    <string name="conn_err">Connection to Service Error: Ensure network connection and retry!</string>
+
+    <!--MENUS -->
+    <string name="main_label">Main</string>
+    <string name="favorites_label">Favorites</string>
+    <string name="settings_label">Settings</string>
+    <string name="add_fav">Add Favorite</string>
+    <string name="rem_fav">Remove Favorite</string>
 </resources>

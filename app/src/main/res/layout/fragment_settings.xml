@@ -24,13 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:drawableLeft="@drawable/favorite_fill"
-        android:drawableTint="#673AB7"
         android:gravity="bottom"
         android:text="@string/fav_label"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:drawableLeftCompat="@drawable/favorite_fill"
+        app:drawableTint="#673AB7" />
 
     <View
         android:id="@+id/divider"
@@ -64,8 +64,6 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/btn_default"
-        android:drawableRight="@drawable/heart_minus"
-        android:drawableTint="#673AB7"
         android:gravity="center_vertical"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
@@ -73,7 +71,9 @@
         android:textColor="#673AB7"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/divider" />
+        app:layout_constraintTop_toTopOf="@+id/divider"
+        app:drawableRightCompat="@drawable/heart_minus"
+        app:drawableTint="#673AB7" />
 
     <TextView
         android:id="@+id/clr_srch_hist_bttn"
@@ -82,22 +82,22 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/btn_default"
-        android:drawableRight="@drawable/manage_search"
-        android:drawableTint="#673AB7"
         android:gravity="center_vertical"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
-        android:text="Clear Search History"
+        android:text="@string/clr_srch_hist"
         android:textColor="#673AB7"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        app:drawableRightCompat="@drawable/manage_search"
+        app:drawableTint="#673AB7" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search History"
+        android:text="@string/search_hist_label"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView6"
         app:layout_constraintStart_toEndOf="@+id/imageView6" />
@@ -110,6 +110,14 @@
         app:layout_constraintTop_toBottomOf="@+id/wipe_fav_bttn"
         app:srcCompat="@drawable/manage_search"
         app:tint="#673AB7" />
+
+    <Switch
+        android:id="@+id/clear_srch_hist2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear Search History"
+        app:layout_constraintStart_toStartOf="@+id/clr_srch_hist_bttn"
+        app:layout_constraintTop_toBottomOf="@+id/clr_srch_hist_bttn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

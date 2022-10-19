@@ -54,9 +54,8 @@ fun bindEmptyStatus(textView: TextView, loadAPIStatus: APIStatus){
         APIStatus.ERROR -> {
             textView.visibility = View.VISIBLE
             textView.gravity = Gravity.CENTER
-            textView.text="Connection to Service Error: Ensure network connection and retry!"
+            textView.text=R.string.conn_err.toString()
             textView.setCompoundDrawablesWithIntrinsicBounds(0,0,0,R.drawable.ic_baseline_apps_outage_24)
-
         }
     }
 }

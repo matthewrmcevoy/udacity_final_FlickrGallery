@@ -20,16 +20,16 @@
             android:id="@+id/empty_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableBottom="@drawable/home"
-            android:drawableTint="#673AB7"
-            android:text="Such Empty!"
+            android:text="@string/empty"
             android:textSize="20sp"
             android:textStyle="bold"
             app:emptyStatus="@{viewModel.status}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tag_search_txt" />
+            app:layout_constraintTop_toBottomOf="@+id/tag_search_txt"
+            app:drawableBottomCompat="@drawable/home"
+            app:drawableTint="#673AB7" />
 
         <AutoCompleteTextView
             android:id="@+id/tag_search_txt"
@@ -40,7 +40,7 @@
             android:backgroundTint="#FFFFFF"
             android:completionHint="Recent Searches"
             android:completionThreshold="0"
-            android:hint="Search Terms"
+            android:hint="@string/search_bar"
             android:singleLine="true"
             android:textColor="#673AB7"
             android:textIsSelectable="true"

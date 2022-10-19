@@ -4,6 +4,6 @@
 
     <item
         android:id="@+id/favpop_unfav"
-        android:title="Remove Favorite"
+        android:title="@string/rem_fav"
         android:titleCondensed="Unfavorite" />
 </menu>

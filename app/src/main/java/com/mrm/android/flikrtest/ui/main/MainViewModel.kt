@@ -102,18 +102,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getPhotos(filter : String) {
 
-//        FlikrApi.retrofitService.getPhotos().enqueue(object : Callback<String> {
-//            override fun onFailure(call: Call<String>, t: Throwable) {
-//                _response.value = "Failure: " + t.message
-//            }
-//
-//            override fun onResponse(call: Call<String>, response: Response<String>) {
-//
-//                _response.value = "Success: ${response.body()} API Photos returned"
-//                //Log.i("ViewModel","Retrofit response is ${_response.value}")
-//            }
-//        })
-//    }}
         viewModelScope.launch {
             try{
                 status.value = APIStatus.LOADING

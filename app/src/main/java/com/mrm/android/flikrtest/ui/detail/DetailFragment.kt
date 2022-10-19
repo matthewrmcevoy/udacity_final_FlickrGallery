@@ -3,6 +3,7 @@ package com.mrm.android.flikrtest.ui.detail
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -40,6 +41,7 @@ class DetailFragment : Fragment() {
             viewModel.addFavorite(apiPhoto)
         }
 
+
         viewModel.isFavorite.observe(viewLifecycleOwner) {
             when (it) {
                 true -> {
@@ -57,5 +59,11 @@ class DetailFragment : Fragment() {
             viewModel.deleteFavorite(apiPhoto)
         }
         return binding.root
+    }
+
+    class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+        override fun onScale(detector: ScaleGestureDetector?): Boolean {
+            return super.onScale(detector)
+        }
     }
 }
