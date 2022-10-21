@@ -164,16 +164,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 ic_server = ic.getString("iconserver")
                 ic_farm = ic.getString("iconfarm")
 
-                loadProfileImage()
+
             }catch(e: Exception){
                 Log.i("MVM", "Exception returned :" + e)
             }
+            loadProfileImage()
         }
+
     }
 
     fun loadProfileImage(){
         val userNsid = URLDecoder.decode(CurrentUser.userID)
-        _imageUrl.value ="https://farm${ic_farm}.staticflickr.com/${ic_server}/buddyicons/${userNsid}.jpg"
-        Log.i("MVM","${imageUrl.value}")
+        if(CurrentUser.userID == "none"){
+            _imageUrl.value = "default"
+        }else{
+            _imageUrl.value ="https://farm${ic_farm}.staticflickr.com/${ic_server}/buddyicons/${userNsid}.jpg"
+            Log.i("MVM","${imageUrl.value}")
+        }
+
     }
 }

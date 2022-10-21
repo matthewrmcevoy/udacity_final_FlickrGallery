@@ -98,6 +98,9 @@ class WelcomeFragment : Fragment() {
         val bottomNavBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
         bottomNavBar.visibility = View.GONE
 
+        val profileImage = requireActivity().findViewById<ImageView>(R.id.profile_image_bttn)
+        profileImage.visibility = View.GONE
+
         viewModel.skipToMain.observe(viewLifecycleOwner, Observer{
             Log.i("WelFrag","Setting = ${viewModel.skipToMain.value}")
             if(it == 1){

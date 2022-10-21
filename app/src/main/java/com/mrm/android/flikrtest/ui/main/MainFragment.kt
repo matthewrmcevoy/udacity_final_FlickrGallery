@@ -109,8 +109,14 @@ class MainFragment : Fragment() {
 
         viewModel.imageUrl.observe(viewLifecycleOwner, Observer{
             val profileImage = requireActivity().findViewById<ImageView>(R.id.profile_image_bttn)
+            profileImage.visibility = View.VISIBLE
             Log.i("MF","$it")
-            Picasso.get().load(it).into(profileImage)
+            if(it != "default"){
+                Picasso.get().load(it).into(profileImage)
+            }else{
+                profileImage.setImageResource(R.drawable.default_profile_48)
+            }
+
         })
 
         return binding.root
