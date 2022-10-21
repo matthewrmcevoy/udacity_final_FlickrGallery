@@ -1,6 +1,7 @@
 package com.mrm.android.flikrtest.api
 
 import com.squareup.moshi.Moshi
+import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -8,7 +9,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.flickr.com/services/feeds/"
+private const val BASE_URL = "https://api.flickr.com/services/"
 private const val FORMAT = "json"
 
 private val moshi = Moshi.Builder()
@@ -22,8 +23,14 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface FlikrAPIService {
-    @GET("photos_public.gne?format=json&nojsoncallback=1")
+    @GET("feeds/photos_public.gne?format=json&nojsoncallback=1")
     suspend fun getPhotos(@Query("tags") type: String): Response<String>
+
+    @GET("rest/?method=flickr.people.getInfo&format=json&nojsoncallback=1")
+    suspend fun getProfileImageDetails(
+        @Query("api_key")apikey: String,
+        @Query("user_id")userId: String
+    ) : Response<String>
 }
 
 object FlikrApi{

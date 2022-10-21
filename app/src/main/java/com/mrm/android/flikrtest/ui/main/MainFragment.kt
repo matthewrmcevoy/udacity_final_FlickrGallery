@@ -13,14 +13,22 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.databinding.FragmentMainBinding
+import com.mrm.android.flikrtest.oauth.CurrentUser
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.photo_detail_fragment.view.*
 import kotlinx.android.synthetic.main.search_history.view.*
+import java.net.URLDecoder
 
 class MainFragment : Fragment() {
 
@@ -43,9 +51,8 @@ class MainFragment : Fragment() {
         binding.photosGrid.adapter = PhotoGridAdapter(viewModel,requireContext(),PhotoGridAdapter.OnClickListener{
             this.findNavController().navigate(MainFragmentDirections.actionPhotoDetails(it))
         })
-
-
-
+        val bottomNavBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNavBar.visibility = View.VISIBLE
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -57,7 +64,6 @@ class MainFragment : Fragment() {
 
         actv.setOnClickListener{
             actv.showDropDown()
-
         }
 
         actv.setOnKeyListener { view, i, keyEvent ->
@@ -89,12 +95,10 @@ class MainFragment : Fragment() {
         binding.imageButton.setOnClickListener {
             searchText = tag_search_txt.text.toString()
             viewModel.addSearch(searchText)
-
             Log.i("Fragment","recent searches are ${viewModel.recentSearch}")
             viewModel.updatePhotoFilter(searchText)
             //val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history, viewModel.recentSearch)
             actv.setAdapter(adapter)
-
 
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(requireView().windowToken, 0)
@@ -102,6 +106,12 @@ class MainFragment : Fragment() {
             tag_search_txt.setText("")
             tag_search_txt.clearFocus()
         }
+
+        viewModel.imageUrl.observe(viewLifecycleOwner, Observer{
+            val profileImage = requireActivity().findViewById<ImageView>(R.id.profile_image_bttn)
+            Log.i("MF","$it")
+            Picasso.get().load(it).into(profileImage)
+        })
 
         return binding.root
     }

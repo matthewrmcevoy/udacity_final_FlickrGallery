@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.mrm.android.flikrtest.api.APIPhoto
 import com.mrm.android.flikrtest.dB.FavoritePhotosDatabase
 import com.mrm.android.flikrtest.dB.getDatabase
+import com.mrm.android.flikrtest.oauth.CurrentUser
 import com.mrm.android.flikrtest.ui.main.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +32,7 @@ class DetailViewModel(apiPhoto: APIPhoto, application: Application): AndroidView
     init{
         _selectedPhoto.value = apiPhoto
         viewModelScope.launch {
-            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites(CurrentUser.userName)
             _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
         }
 
@@ -42,7 +43,7 @@ class DetailViewModel(apiPhoto: APIPhoto, application: Application): AndroidView
         //viewModelScope.launch{
         CoroutineScope(Dispatchers.IO).launch{
             database.favoritePhotoDao.addFavoritePhoto(apiPhoto)
-            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites(CurrentUser.userName)
         }
             _isFavorite.value = true
 
@@ -52,14 +53,14 @@ class DetailViewModel(apiPhoto: APIPhoto, application: Application): AndroidView
     fun deleteFavorite(apiPhoto: APIPhoto){
         viewModelScope.launch {
             database.favoritePhotoDao.deleteFavorite(apiPhoto.media)
-            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites(CurrentUser.userName)
             _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
         }
     }
 
     fun isFavorite(apiPhoto: APIPhoto): Boolean{
         viewModelScope.launch{
-            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites(CurrentUser.userName)
             _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
         }
         return _isFavorite.value == true

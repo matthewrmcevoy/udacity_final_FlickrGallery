@@ -4,12 +4,14 @@ import android.content.Context
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mrm.android.flikrtest.api.APIPhoto
+import com.mrm.android.flikrtest.oauth.AuthUser
 import com.mrm.android.flikrtest.ui.favorites.FavPhotoGridAdapter
 import com.mrm.android.flikrtest.ui.favorites.FavoritesLoadStatus
 import com.mrm.android.flikrtest.ui.main.APIStatus
@@ -59,6 +61,7 @@ fun bindEmptyStatus(textView: TextView, loadAPIStatus: APIStatus){
         }
     }
 }
+
 @BindingAdapter("favoritesLoadStatus")
 fun bindFavsLoadStat(textView: TextView, favoritesLoadStatus: FavoritesLoadStatus){
     when(favoritesLoadStatus){

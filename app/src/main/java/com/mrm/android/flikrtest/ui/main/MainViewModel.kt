@@ -1,19 +1,28 @@
 package com.mrm.android.flikrtest.ui.main
 
+import android.app.Activity
 import android.app.Application
 import android.util.Log
+import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.*
+import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.api.APIPhoto
 import com.mrm.android.flikrtest.api.FlikrApi
 import com.mrm.android.flikrtest.api.parseAPIPhotosJsonResult
 import com.mrm.android.flikrtest.dB.getDatabase
 import com.mrm.android.flikrtest.dB.getSearchHistoryDB
+import com.mrm.android.flikrtest.oauth.CurrentUser
 import com.mrm.android.flikrtest.searchhist.SearchTerm
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Response
+import java.net.URLDecoder
+
 enum class APIStatus{LOADING, DONE, ERROR, EMPTY}
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -48,15 +57,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val isFavorite: LiveData<Boolean>
         get() = _isFavorite
 
+    private val _imageUrl = MutableLiveData<String>()
+    val imageUrl: LiveData<String>
+    get()=_imageUrl
+
     private lateinit var dbFavoritePhotos : List<APIPhoto>
+
+    var ic_server = ""
+    var ic_farm = ""
 
 
     init {
 
         status.value = APIStatus.LOADING
         viewModelScope.launch {
-            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
-            val searchList = searchHistDatabase.searchHistoryDao.getSearchHistory()
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites(CurrentUser.userName)
+            val searchList = searchHistDatabase.searchHistoryDao.getSearchHistory(CurrentUser.userName)
             for(i in searchList){
                 if(!recentSearch.contains(i.term)){
                     recentSearch.add(i.term)
@@ -64,7 +80,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
         getPhotos(filter)
-
+        getProfileDetails()
         Log.i("mvm","init was run")
         _mTest.value = "https://live.staticflickr.com/65535/52363257257_9e1239c5f6_m.jpg"
 
@@ -74,10 +90,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if(recentSearch.contains(searchString) || searchString =="" ){
             null
         }else{
-            val newSearchTerm= SearchTerm(searchString)
+            val newSearchTerm= SearchTerm(searchString, CurrentUser.userName)
             CoroutineScope(Dispatchers.IO).launch{
                 searchHistDatabase.searchHistoryDao.addSearchTerm(newSearchTerm)
-                val searchList = searchHistDatabase.searchHistoryDao.getSearchHistory()
+                val searchList = searchHistDatabase.searchHistoryDao.getSearchHistory(CurrentUser.userName)
                 for(i in searchList){
                     if(recentSearch.contains(i.term)){
                         null
@@ -90,7 +106,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
     fun wipeSearch(){
         viewModelScope.launch{
-            searchHistDatabase.searchHistoryDao.clearSearchHistory()
+            searchHistDatabase.searchHistoryDao.clearSearchHistory(CurrentUser.userName)
         }
     }
 
@@ -131,10 +147,33 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
     fun isFavorite(apiPhoto: APIPhoto): Boolean{
         viewModelScope.launch{
-            dbFavoritePhotos = database.favoritePhotoDao.getFavorites()
+            dbFavoritePhotos = database.favoritePhotoDao.getFavorites(CurrentUser.userName)
         }
         _isFavorite.value = dbFavoritePhotos.contains(apiPhoto)
         Log.i("mvm", "${_isFavorite.value}")
         return _isFavorite.value == true
+    }
+
+    fun getProfileDetails(){
+        viewModelScope.launch {
+            try{
+                val nsidD = URLDecoder.decode(CurrentUser.userID)
+                val response = FlikrApi.retrofitService.getProfileImageDetails("64187751b962051b4eb86e0c23bd7874",nsidD)
+                val res2 = JSONObject(response.body()!!)
+                val ic = res2.getJSONObject("person")
+                ic_server = ic.getString("iconserver")
+                ic_farm = ic.getString("iconfarm")
+
+                loadProfileImage()
+            }catch(e: Exception){
+                Log.i("MVM", "Exception returned :" + e)
+            }
+        }
+    }
+
+    fun loadProfileImage(){
+        val userNsid = URLDecoder.decode(CurrentUser.userID)
+        _imageUrl.value ="https://farm${ic_farm}.staticflickr.com/${ic_server}/buddyicons/${userNsid}.jpg"
+        Log.i("MVM","${imageUrl.value}")
     }
 }

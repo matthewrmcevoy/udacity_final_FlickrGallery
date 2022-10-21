@@ -9,7 +9,13 @@ import androidx.core.net.toUri
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.mrm.android.flikrtest.MainActivity
 import com.mrm.android.flikrtest.R
+import com.mrm.android.flikrtest.dB.getDatabase
+import com.mrm.android.flikrtest.dB.getUserDB
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.net.URLDecoder
 import java.net.URLEncoder
 import kotlin.random.Random
@@ -54,10 +60,21 @@ class LoginActivity : AppCompatActivity() {
             CurrentUser.oa_token = oauth_token
             CurrentUser.oa_token_secret = oauth_token_secret
 
+            val userdB = getUserDB(this)
+            val authUser= AuthUser(user_nsid, fullname, oauth_token, oauth_token_secret, username, System.currentTimeMillis().toInt()/1000)
+
+            CoroutineScope(Dispatchers.IO).launch{
+                userdB.userDao.addUser(authUser)
+            }
+
+
             Log.i("VolleyReturn",fullname + oauth_token + oauth_token_secret + user_nsid + username)
 
             Log.i("CurrentUser", CurrentUser.userName + CurrentUser.fullName)
 
+            val intent = Intent(this, MainActivity::class.java)
+
+            startActivity(intent)
         }, {
             Log.i("innterTest","WHOOPS!")
         })

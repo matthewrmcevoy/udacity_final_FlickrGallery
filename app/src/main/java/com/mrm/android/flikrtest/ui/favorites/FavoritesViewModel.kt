@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.mrm.android.flikrtest.api.APIPhoto
 import com.mrm.android.flikrtest.dB.getDatabase
+import com.mrm.android.flikrtest.oauth.CurrentUser
 import kotlinx.coroutines.launch
 enum class FavoritesLoadStatus{LOADING, DONE, EMPTY}
 class FavoritesViewModel : ViewModel() {
@@ -25,7 +26,7 @@ class FavoritesViewModel : ViewModel() {
     init{
         favoritesStatus.value=FavoritesLoadStatus.LOADING
         viewModelScope.launch {
-            favPhotos = database.favoritePhotoDao.getFavorites()
+            favPhotos = database.favoritePhotoDao.getFavorites(CurrentUser.userName)
             _favorites.value = favPhotos
             if(favPhotos.isEmpty()){
                 favoritesStatus.value = FavoritesLoadStatus.EMPTY
@@ -38,7 +39,7 @@ class FavoritesViewModel : ViewModel() {
 
     fun updateFavorites(){
         viewModelScope.launch{
-            favPhotos = database.favoritePhotoDao.getFavorites()
+            favPhotos = database.favoritePhotoDao.getFavorites(CurrentUser.userName)
             _favorites.value = favPhotos
             if(favPhotos.isEmpty()){
                 favoritesStatus.value = FavoritesLoadStatus.EMPTY
@@ -50,7 +51,7 @@ class FavoritesViewModel : ViewModel() {
 
     fun isFavorite(apiPhoto: APIPhoto): Boolean{
         viewModelScope.launch{
-            favPhotos = database.favoritePhotoDao.getFavorites()
+            favPhotos = database.favoritePhotoDao.getFavorites(CurrentUser.userName)
         }
         _isFavorite.value = favPhotos.contains(apiPhoto)
         Log.i("mvm", "${_isFavorite.value}")

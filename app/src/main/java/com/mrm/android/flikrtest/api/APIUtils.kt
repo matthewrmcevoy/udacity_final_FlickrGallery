@@ -1,5 +1,6 @@
 package com.mrm.android.flikrtest.api
 
+import com.mrm.android.flikrtest.oauth.CurrentUser
 import org.json.JSONObject
 
 fun parseAPIPhotosJsonResult(jsonResult: JSONObject): ArrayList<APIPhoto>{
@@ -31,7 +32,7 @@ fun parseAPIPhotosJsonResult(jsonResult: JSONObject): ArrayList<APIPhoto>{
 //        val height = photoJson.getString("height").toInt()
 //        val width = photoJson.getString("width").toInt()
 
-        val apiPhoto = APIPhoto(title, media,date,author, tagsList)
+        val apiPhoto = APIPhoto(title, media,date,author, tagsList, CurrentUser.userName)
         photoList.add(apiPhoto)
     }
 

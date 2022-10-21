@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.mrm.android.flikrtest.dB.FavoritePhotosDatabase
 import com.mrm.android.flikrtest.dB.getDatabase
 import com.mrm.android.flikrtest.dB.getSearchHistoryDB
+import com.mrm.android.flikrtest.oauth.CurrentUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,9 +29,9 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     init{
         favSettingStat.value = FavSettingsStatus.DONE
         viewModelScope.launch{
-            _favCount.value = database.favoritePhotoDao.getFavorites().size
+            _favCount.value = database.favoritePhotoDao.getFavorites(CurrentUser.userName).size
             Log.i("svm","${_favCount.value}")
-            _searchCount.value = searchHistoryDatabase.searchHistoryDao.getSearchHistory().size
+            _searchCount.value = searchHistoryDatabase.searchHistoryDao.getSearchHistory(CurrentUser.userName).size
         }
         Log.i("svm","init")
 
@@ -39,8 +40,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     fun clearFavorites(){
         favSettingStat.value = FavSettingsStatus.LOADING
         CoroutineScope(Dispatchers.IO).launch{
-            database.favoritePhotoDao.clearFavorites()
-            _favCount.postValue(database.favoritePhotoDao.getFavorites().size)
+            database.favoritePhotoDao.clearFavorites(CurrentUser.userName)
+            _favCount.postValue(database.favoritePhotoDao.getFavorites(CurrentUser.userName).size)
         }
 
 
@@ -49,8 +50,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     fun clearSearchHistory(){
         CoroutineScope(Dispatchers.IO).launch{
-            searchHistoryDatabase.searchHistoryDao.clearSearchHistory()
-            _searchCount.postValue(searchHistoryDatabase.searchHistoryDao.getSearchHistory().size)
+            searchHistoryDatabase.searchHistoryDao.clearSearchHistory(CurrentUser.userName)
+            _searchCount.postValue(searchHistoryDatabase.searchHistoryDao.getSearchHistory(CurrentUser.userName).size)
         }
 
     }

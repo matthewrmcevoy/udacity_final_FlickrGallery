@@ -10,4 +10,5 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class SearchTerm(
     @PrimaryKey
-    val term: String)
+    val term: String,
+    val user: String)
