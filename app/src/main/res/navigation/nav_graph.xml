@@ -73,4 +73,9 @@
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/takePhotoFragment"
+        android:name="com.mrm.android.flikrtest.ui.photo.TakePhotoFragment"
+        android:label="fragment_take_photo"
+        tools:layout="@layout/fragment_take_photo" />
 </navigation>

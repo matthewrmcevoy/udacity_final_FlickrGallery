@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/circle_image.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/circular.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/drag_indicator.xml" value="0.1" />
@@ -11,16 +12,24 @@
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/favorite2.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/favorite_fill.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/heart_minus-40px.xml" value="0.1" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/heart_minus.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/heart_plus.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/home-48px.xml" value="0.1" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/ic_baseline_apps_outage_24.xml" value="0.1" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/manage_search-48px.xml" value="0.1" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/manage_search.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/settings-48px.xml" value="0.1" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/drawable/settings.xml" value="0.1" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/anim_layout.xml" value="0.30104166666666665" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_favorites.xml" value="0.5" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_login.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_main.xml" value="0.33" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
+        <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_take_photo.xml" value="0.15715579710144928" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/fragment_welcome.xml" value="0.33" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/grid_view_item.xml" value="0.33" />
         <entry key="..\:/Users/matth/AndroidStudioProjects/FlikrTest/app/src/main/res/layout/grid_view_item_fav.xml" value="0.21331521739130435" />

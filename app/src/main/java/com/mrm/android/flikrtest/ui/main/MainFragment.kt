@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.databinding.FragmentMainBinding
 import com.mrm.android.flikrtest.oauth.CurrentUser
@@ -106,6 +107,9 @@ class MainFragment : Fragment() {
             tag_search_txt.setText("")
             tag_search_txt.clearFocus()
         }
+
+        val cameraButton: FloatingActionButton = requireActivity().findViewById(R.id.floatingActionButton)
+        cameraButton.visibility = View.VISIBLE
 
         viewModel.imageUrl.observe(viewLifecycleOwner, Observer{
             val profileImage = requireActivity().findViewById<ImageView>(R.id.profile_image_bttn)
