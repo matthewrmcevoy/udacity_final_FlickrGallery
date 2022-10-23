@@ -86,7 +86,9 @@ class TakePhotoFragment : Fragment() {
         val oats = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), ts)
         val oat = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), OAuthConstants.OAUTH_TOKEN)
         val oav = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), OAuthConstants.OAUTH_VERSION)
-        val sortParams = "oauth_consumer_key="+OAuthConstants.API_KEY+"&oauth_nonce="+nonce+"&oauth_signature_method="+OAuthConstants.OAUTH_SIG_METHOD+"&oauth_timestamp="+ts+"&oauth_token="+OAuthConstants.OAUTH_TOKEN+"&oauth_version="+OAuthConstants.OAUTH_VERSION
+        val titleTxt = URLEncoder.encode(photo_upload_title_txt.text.toString()).replace("+", "%20")
+        val title =RequestBody.create("text/plain".toMediaTypeOrNull(), photo_upload_title_txt.text.toString())
+        val sortParams = "oauth_consumer_key="+OAuthConstants.API_KEY+"&oauth_nonce="+nonce+"&oauth_signature_method="+OAuthConstants.OAUTH_SIG_METHOD+"&oauth_timestamp="+ts+"&oauth_token="+OAuthConstants.OAUTH_TOKEN+"&oauth_version="+OAuthConstants.OAUTH_VERSION+"&title="+titleTxt
         val oabasetext = "POST&"+URLEncoder.encode(OAuthConstants.UPLOAD_BASE)+"&"+URLEncoder.encode(sortParams)
         val oas = calcHmac(oabasetext,OAuthConstants.API_SECRET+OAuthConstants.OAUTH_TOKEN_SECRET)
         val oasig = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), oas)
@@ -96,9 +98,11 @@ class TakePhotoFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch{
             try{
-                val response = FlikrUploadApi.retrofitService.uploadPhoto(oack,oan,oasm,oats,oat,oav,oasig, image)
+                val response = FlikrUploadApi.retrofitService.uploadPhoto(oack,oan,oasm,oats,oat,oav,oasig,title, image)
                 Log.i("Upload", "$response + ${response.body()}")
                 Log.i("Upload","${sortParams}")
+                Log.i("Upload","${oabasetext}")
+                Log.i("Upload2",URLEncoder.encode(titleTxt)+ titleTxt)
             }catch(e: Exception){
                 Log.i("Upload","$e")
             }
@@ -124,6 +128,9 @@ class TakePhotoFragment : Fragment() {
 
             capture_image.setImageBitmap(takenPhoto)
             floatingActionButton2.visibility=View.VISIBLE
+            photo_upload_desc_txt.visibility=View.VISIBLE
+            photo_upload_title_txt.visibility=View.VISIBLE
+            photo_upload_tags_list.visibility=View.VISIBLE
         }else{
             super.onActivityResult(requestCode, resultCode, data)
         }

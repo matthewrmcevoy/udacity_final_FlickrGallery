@@ -41,6 +41,7 @@ interface FlikrUploadService {
                             @Part("oauth_token") oat : RequestBody,
                             @Part("oauth_version") oav : RequestBody,
                             @Part("oauth_signature") oas : RequestBody,
+                            @Part("title") title: RequestBody,
                             @Part photo : MultipartBody.Part) : Response<String>
 }
 
