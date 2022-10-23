@@ -23,12 +23,11 @@ import com.mrm.android.flikrtest.databinding.FragmentWelcomeBinding
 import com.mrm.android.flikrtest.oauth.CurrentUser
 import com.mrm.android.flikrtest.oauth.calcHmac
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.delay
 import java.net.URLEncoder
 import kotlin.random.Random
 
 class WelcomeFragment : Fragment() {
-
-
     val viewModel: WelcomeViewModel by lazy{
         ViewModelProvider(this).get(WelcomeViewModel::class.java)
     }
@@ -94,9 +93,12 @@ class WelcomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        /*Hide the bottom navigation bar during the user selection process to prevent navigation
+        * prior to authorization - avoids overriding bottomNavBar item click listeners to wrap
+        * with conditional logic*/
         val bottomNavBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
         bottomNavBar.visibility = View.GONE
+
 
         val profileImage = requireActivity().findViewById<ImageView>(R.id.profile_image_bttn)
         profileImage.visibility = View.GONE

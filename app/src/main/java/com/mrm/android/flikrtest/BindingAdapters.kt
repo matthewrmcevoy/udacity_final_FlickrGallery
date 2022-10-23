@@ -20,6 +20,8 @@ import com.mrm.android.flikrtest.ui.settings.FavSettingsStatus
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.grid_view_item.view.*
 
+
+//Binding adapters for databinding throughout the layout files
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?){
     Log.i("BindingAdapter","imageUrl is called on: $imgView and $imgUrl")

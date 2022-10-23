@@ -34,17 +34,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Set the layout/navhost in the mainActivity
         setContentView(R.layout.activity_main)
 
+        //Find the NavController and setup the persisted UI elements at the activity level
+        //Bottom application bar / Profile Image BUttons / and upload photo floatingActionButton
         val navController = this.findNavController(R.id.nav_host_fragment)
         val navView: BottomNavigationView = findViewById(R.id.bottom_nav)
         navView.setupWithNavController(navController)
 
+        //Profile Image Button housing a popup-menu for logout action
         val profileImage: ImageView = findViewById(R.id.profile_image_bttn)
         profileImage.setOnClickListener{
             showPopup(it)
         }
 
+        //Upload Photo button
         val cameraButton: FloatingActionButton = findViewById(R.id.floatingActionButton)
         cameraButton.visibility = View.GONE
         cameraButton.setOnClickListener {
@@ -53,16 +58,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
+    //Define the popup function and attach it to the profileImage button as its anchor
     fun showPopup(view: View){
         val popup = PopupMenu(this, view)
         popup.inflate(R.menu.logout_menu)
         popup.gravity= Gravity.TOP
         popup.show()
 
+        //define the action of the only item in the menu (to change users)
         popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
             when(it.itemId){
                 R.id.logout_action -> {
