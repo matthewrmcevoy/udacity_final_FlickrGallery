@@ -1,6 +1,7 @@
 package com.mrm.android.flikrtest.api
 
 import com.mrm.android.flikrtest.oauth.CurrentUser
+import com.mrm.android.flikrtest.ui.userphotos.UserPhoto
 import org.json.JSONObject
 
 fun parseAPIPhotosJsonResult(jsonResult: JSONObject): ArrayList<APIPhoto>{
@@ -38,5 +39,25 @@ fun parseAPIPhotosJsonResult(jsonResult: JSONObject): ArrayList<APIPhoto>{
 
 
     return photoList
+}
+
+fun parseUserPhotos(jsonResult: JSONObject) : ArrayList<UserPhoto>{
+    val userPhotoList = ArrayList<UserPhoto>()
+    val userPhotoArray = jsonResult.getJSONObject("photos")
+    val userPhotosArray = userPhotoArray.getJSONArray("photo")
+
+
+    for(i in 0 until userPhotosArray.length()){
+        val userPhoto = userPhotosArray.getJSONObject(i)
+        val photoId = userPhoto.getString("id")
+        val photoSecret = userPhoto.getString("secret")
+        val photoServer = userPhoto.getString("server")
+        val title = userPhoto.getString("title")
+        val photoUrl = "https://live.staticflickr.com/$photoServer/${photoId}_${photoSecret}_w.jpg"
+
+        val userPhotoS = UserPhoto(title, photoUrl)
+        userPhotoList.add(userPhotoS)
+    }
+    return userPhotoList
 }
 

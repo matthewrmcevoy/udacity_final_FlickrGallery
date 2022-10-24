@@ -17,6 +17,8 @@ import com.mrm.android.flikrtest.ui.favorites.FavoritesLoadStatus
 import com.mrm.android.flikrtest.ui.main.APIStatus
 import com.mrm.android.flikrtest.ui.main.PhotoGridAdapter
 import com.mrm.android.flikrtest.ui.settings.FavSettingsStatus
+import com.mrm.android.flikrtest.ui.userphotos.UserPhoto
+import com.mrm.android.flikrtest.ui.userphotos.UserPhotoGridAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.grid_view_item.view.*
 
@@ -31,10 +33,26 @@ fun bindImage(imgView: ImageView, imgUrl: String?){
         .into(imgView)
     }
 
+@BindingAdapter("userImageUrl")
+fun bindUserImages(imgView: ImageView, userImageUrl: String?){
+    Log.i("BindingAdapter","userImageUrl call for $userImageUrl")
+    Picasso
+        .get()
+        .load(userImageUrl)
+        .into(imgView)
+}
+
 @BindingAdapter("listData")
 fun bindRecycleView(recyclerView: RecyclerView, data: List<APIPhoto>?){
     val adapter = recyclerView.adapter as PhotoGridAdapter
     adapter.submitList(data)
+    Log.i("userRecycleAdapater","adapter submitList of data $data")
+}
+@BindingAdapter("userPhotoList")
+fun bindUserRecycleView(recyclerView: RecyclerView, data: List<UserPhoto>?){
+    val adapter = recyclerView.adapter as UserPhotoGridAdapter
+    adapter.submitList(data)
+    Log.i("userRecycleAdapater","adapter submitList of data $data")
 }
 @BindingAdapter("favListData")
 fun bindFavRecycleView(recyclerView: RecyclerView, data: List<APIPhoto>?){

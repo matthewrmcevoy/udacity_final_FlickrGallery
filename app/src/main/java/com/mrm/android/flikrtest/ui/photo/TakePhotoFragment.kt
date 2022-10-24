@@ -98,7 +98,7 @@ class TakePhotoFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch{
             try{
-                val response = FlikrUploadApi.retrofitService.uploadPhoto(oack,oan,oasm,oats,oat,oav,oasig,title, image)
+                val response = FlikrUploadApi.retrofitService.uploadPhoto(oack,oan,oasm,oats,oat,oav,oasig,title,image)
                 Log.i("Upload", "$response + ${response.body()}")
                 Log.i("Upload","${sortParams}")
                 Log.i("Upload","${oabasetext}")
@@ -128,9 +128,7 @@ class TakePhotoFragment : Fragment() {
 
             capture_image.setImageBitmap(takenPhoto)
             floatingActionButton2.visibility=View.VISIBLE
-            photo_upload_desc_txt.visibility=View.VISIBLE
             photo_upload_title_txt.visibility=View.VISIBLE
-            photo_upload_tags_list.visibility=View.VISIBLE
         }else{
             super.onActivityResult(requestCode, resultCode, data)
         }

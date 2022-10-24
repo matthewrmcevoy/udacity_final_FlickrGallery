@@ -33,6 +33,12 @@ interface FlikrAPIService {
         @Query("api_key")apikey: String,
         @Query("user_id")userId: String
     ) : Response<String>
+
+    @GET("rest/?method=flickr.people.getPublicPhotos&format=json&nojsoncallback=1")
+    suspend fun getUserImages(
+        @Query("api_key")apikey: String,
+        @Query("user_id")userId: String
+    ) : Response<String>
 }
 
 object FlikrApi{

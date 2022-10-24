@@ -14,4 +14,8 @@
         android:id="@+id/settingsFragment"
         android:icon="@drawable/settings"
         android:title="@string/settings_label" />
+    <item
+        android:id="@+id/userPhotosFragment"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="My Photos" />
 </menu>

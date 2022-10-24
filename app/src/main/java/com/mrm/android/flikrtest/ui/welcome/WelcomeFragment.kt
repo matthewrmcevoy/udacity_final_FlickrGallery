@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -23,6 +24,7 @@ import com.mrm.android.flikrtest.databinding.FragmentWelcomeBinding
 import com.mrm.android.flikrtest.oauth.CurrentUser
 import com.mrm.android.flikrtest.oauth.calcHmac
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_welcome.*
 import kotlinx.coroutines.delay
 import java.net.URLEncoder
 import kotlin.random.Random
@@ -76,18 +78,51 @@ class WelcomeFragment : Fragment() {
             viewModel.setCurrentUser("guest")
             findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment())
         }
-        viewModel.recentUser.observe(viewLifecycleOwner, Observer{
-            if(it.userID != "none"){
-                binding.continueAsLastBttn.visibility = View.VISIBLE
-                binding.continueAsLastBttn.text = "Continue as ${viewModel.recentUser.value!!.userName}"
-            }
-        })
+//        viewModel.recentUser.observe(viewLifecycleOwner, Observer{
+//            if(it.userID != "none"){
+//                binding.continueAsLastBttn.visibility = View.VISIBLE
+//                binding.continueAsLastBttn.text = "Continue as ${viewModel.recentUser.value!!.userName}"
+//            }
+//        })
 
         binding.continueAsLastBttn.setOnClickListener {
             viewModel.setCurrentUser("user")
             findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment())
 
         }
+
+        val listener = object : MotionLayout.TransitionListener{
+            override fun onTransitionStarted(motionLayout: MotionLayout?,startId: Int,endId: Int) {
+                viewModel.recentUser.observe(viewLifecycleOwner, Observer{
+                    if(it.userID != "none"){
+                        continue_as_last_bttn.text = "Continue as ${viewModel.recentUser.value!!.userName}"
+                    }
+                })
+                login_bttn.visibility = View.INVISIBLE
+                guest_bttn.visibility = View.INVISIBLE
+            }
+            override fun onTransitionChange(motionLayout: MotionLayout?, startId: Int,endId: Int,progress: Float
+            ) {
+                Log.i("test", progress.toString())
+                progressBar2.setProgress((progress*100).toInt(), true)
+            }
+            override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                viewModel.recentUser.observe(viewLifecycleOwner, Observer{
+                    if(it.userID != "none"){
+                        continue_as_last_bttn.visibility = View.VISIBLE
+                        progressBar2.visibility = View.GONE
+                    }
+                })
+                login_bttn.visibility = View.VISIBLE
+                guest_bttn.visibility = View.VISIBLE
+            }
+
+            override fun onTransitionTrigger(motionLayout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) {
+                //do nothing
+            }
+        }
+        binding.motionLayout.setTransitionListener(listener)
+
         return binding.root
     }
 

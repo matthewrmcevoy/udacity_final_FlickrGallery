@@ -78,4 +78,8 @@
         android:name="com.mrm.android.flikrtest.ui.photo.TakePhotoFragment"
         android:label="fragment_take_photo"
         tools:layout="@layout/fragment_take_photo" />
+    <fragment
+        android:id="@+id/userPhotosFragment"
+        android:name="com.mrm.android.flikrtest.ui.userphotos.UserPhotosFragment"
+        android:label="UserPhotosFragment" />
 </navigation>
