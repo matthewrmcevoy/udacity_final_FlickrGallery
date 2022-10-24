@@ -26,7 +26,21 @@
         app:spanCount="3"
         app:userPhotoList="@{viewModel.userphotoList}"
         tools:itemCount="25"
-        tools:listitem="@layout/user_photos_grid" />
+        tools:listitem="@layout/user_photos_grid" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/user_detail_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#A6000000"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
