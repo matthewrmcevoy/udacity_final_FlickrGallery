@@ -15,10 +15,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.navigation.fragment.findNavController
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.api.FlikrUploadApi
 import com.mrm.android.flikrtest.databinding.FragmentTakePhotoBinding
@@ -103,6 +105,9 @@ class TakePhotoFragment : Fragment() {
                 Log.i("Upload","${sortParams}")
                 Log.i("Upload","${oabasetext}")
                 Log.i("Upload2",URLEncoder.encode(titleTxt)+ titleTxt)
+                Snackbar.make(requireView(),"Upload Succesful!",Snackbar.LENGTH_INDEFINITE).setAction("View",{
+                    findNavController().navigate(R.id.userPhotosFragment)
+                }).show()
             }catch(e: Exception){
                 Log.i("Upload","$e")
             }

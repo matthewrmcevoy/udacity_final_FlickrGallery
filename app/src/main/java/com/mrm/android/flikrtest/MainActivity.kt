@@ -73,6 +73,9 @@ class MainActivity : AppCompatActivity() {
                     profile_image_bttn.setImageResource(android.R.color.transparent)
                     findNavController(R.id.nav_host_fragment).navigate(R.id.welcomeFragment)
                 }
+                R.id.settingsFragment -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.settingsFragment)
+                }
             }
             true
         })
