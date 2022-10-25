@@ -111,13 +111,5 @@
         app:srcCompat="@drawable/manage_search"
         app:tint="#673AB7" />
 
-    <Switch
-        android:id="@+id/clear_srch_hist2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear Search History"
-        app:layout_constraintStart_toStartOf="@+id/clr_srch_hist_bttn"
-        app:layout_constraintTop_toBottomOf="@+id/clr_srch_hist_bttn" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
