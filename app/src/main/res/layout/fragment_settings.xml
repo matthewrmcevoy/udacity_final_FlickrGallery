@@ -12,7 +12,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/settings_gear_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/settings" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/settings_favorites_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -28,7 +28,7 @@
         android:text="@string/fav_label"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/settings_gear_icon"
         app:drawableLeftCompat="@drawable/favorite_fill"
         app:drawableTint="#673AB7" />
 
@@ -42,7 +42,7 @@
         android:backgroundTint="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/settings_favorites_header" />
 
     <View
         android:id="@+id/divider2"
@@ -55,7 +55,7 @@
         android:backgroundTint="#673AB7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/settings_search_header" />
 
     <TextView
         android:id="@+id/wipe_fav_bttn"
@@ -94,16 +94,16 @@
         app:drawableTint="#673AB7" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/settings_search_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search_hist_label"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-        app:layout_constraintStart_toEndOf="@+id/imageView6" />
+        app:layout_constraintBottom_toBottomOf="@+id/search_icon"
+        app:layout_constraintStart_toEndOf="@+id/search_icon" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/search_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"

@@ -20,8 +20,25 @@
     <!--Favorites Fragment Layout -->
     <string name="favorites_empty">Add Some Favorites!</string>
 
+    <!--Welcome Fragment Messages-->
+    <string name="guest_restrictions">Guest accounts cannot post photos or view uploaded photos!</string>
+
+    <!--Welcome Fragment Layout-->
+    <string name="guest_bttn">Continue as Guest</string>
+    <string name="appTitleTxt">AndroidFlickr</string>
+    <string name="new_user">Login New User</string>
+
     <!--Binding Strings-->
     <string name="conn_err">Connection to Service Error: Ensure network connection and retry!</string>
+
+    <!--Take Photos Fragment Messages-->
+    <string name="upload_failed">Upload Failed!</string>
+    <string name="upload_success">Upload Successful!</string>
+    <string name="view">View</string>
+
+    <!--Take Photos Fragment Layout -->
+    <string name="capture">Capture</string>
+    <string name="title_hint">Photo Title</string>
 
     <!--MENUS -->
     <string name="main_label">Main</string>

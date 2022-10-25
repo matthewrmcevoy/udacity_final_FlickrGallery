@@ -78,7 +78,7 @@ class WelcomeFragment : Fragment() {
         }
         binding.guestBttn.setOnClickListener {
             viewModel.setCurrentUser("guest")
-            Toast.makeText(requireContext(),"Guest accounts cannot post photos or view uploaded photos!", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),R.string.guest_restrictions, Toast.LENGTH_LONG).show()
             findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment())
         }
 

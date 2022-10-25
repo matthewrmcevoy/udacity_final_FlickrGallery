@@ -79,14 +79,14 @@ class TakePhotoFragment : Fragment() {
                 UPLOAD_STATUS.ERROR ->{
                     //HIDE LOADING BAR + DISPLAY SNACKBAR
                     uploadProgressBar.visibility = View.GONE
-                    Snackbar.make(requireView(),"Upload Failed!",Snackbar.LENGTH_LONG).setAction("Ok") {
+                    Snackbar.make(requireView(),R.string.upload_failed,Snackbar.LENGTH_LONG).setAction(android.R.string.ok) {
                         null
                     }.show()
                 }
                 UPLOAD_STATUS.SUCCESS ->{
                     //HIDE LOADING BAR + DISPLAY SNACKBAR
                     uploadProgressBar.visibility = View.GONE
-                    Snackbar.make(requireView(),"Upload Succesful!",Snackbar.LENGTH_LONG).setAction("View") {
+                    Snackbar.make(requireView(),R.string.upload_success,Snackbar.LENGTH_LONG).setAction(R.string.view) {
                         findNavController().navigate(R.id.userPhotosFragment)
                         }.show()
                 }
