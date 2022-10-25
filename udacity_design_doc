@@ -1,17 +1,17 @@
 Application Overview: 
   Design an application to fetch public images from Flickr using the Flickr API
-  Within this app, all for a search feature to search public photos by "tags" 
-  Save search history within the app for quick re-searching of similar tags. 
+  Within this app, allow for a search feature to search public photos by "tags" 
+  Save search history within the app for quick re-searching of similar tags(room db). 
   Allow user to capture images through camera device
-  Allow user to upload images taken from their device
-  All authentication to Flickr services via OAUTH
-  Allow user to save favorite photos from public feeds
+  Allow user to upload images taken from their device (POST multipart messave via retrofit)
+  All authentication to Flickr services via OAUTH (volley requests back and forth exchanging api_key for request token for auth token, etc)
+  Allow user to save favorite photos from public feeds (room db)
   
  Architecture Overview:
     Rubric Requirements; 
         I. Android UI/UX:
             A. Navigable Interfaces:
-              1. Welcome / Splash screen to display a logo and auth buttons (and a flow to register / authorize new users if no account exists)
+              1. Welcome / Splash screen(animated via motionLayout) to display a logo and auth buttons (and a flow to register / authorize new users if no account exists)
               2. Main Screen which displays 20images from the public feed utilizing API call via retrofit and custom JSON Parser
               3. Detail Image View, which takes a photo passed from the main screen and displays it with title,description, tags, etc 
               4. Favorites Screen which utilizes images "saved/favorited" from the main feed into a RoomData base
@@ -27,8 +27,10 @@ Application Overview:
               B. Fetch authorized user profile image for display in top banner
               C. Fetch authorized users personal photos for display in User Images screen
               D. Complete OAUTH request (requires multistep request for temp token, authorization via browser intent, then trade temp token for auth token to make signed calls)
-       III. Hardware Integration
+       
+       III. Hardware/System Integration
              A. Utilization of camera and upload if user is authorized
+             B. requires FileProvider to access tempFile saved onDisk to upload and display. 
           
           
           
