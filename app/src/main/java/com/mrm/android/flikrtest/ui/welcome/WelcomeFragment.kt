@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContextCompat
@@ -19,6 +20,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.databinding.FragmentWelcomeBinding
 import com.mrm.android.flikrtest.oauth.CurrentUser
@@ -76,14 +78,9 @@ class WelcomeFragment : Fragment() {
         }
         binding.guestBttn.setOnClickListener {
             viewModel.setCurrentUser("guest")
+            Toast.makeText(requireContext(),"Guest accounts cannot post photos or view uploaded photos!", Toast.LENGTH_LONG).show()
             findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment())
         }
-//        viewModel.recentUser.observe(viewLifecycleOwner, Observer{
-//            if(it.userID != "none"){
-//                binding.continueAsLastBttn.visibility = View.VISIBLE
-//                binding.continueAsLastBttn.text = "Continue as ${viewModel.recentUser.value!!.userName}"
-//            }
-//        })
 
         binding.continueAsLastBttn.setOnClickListener {
             viewModel.setCurrentUser("user")
@@ -134,6 +131,8 @@ class WelcomeFragment : Fragment() {
         val bottomNavBar = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
         bottomNavBar.visibility = View.GONE
 
+        val cameraButton = requireActivity().findViewById<FloatingActionButton>(R.id.take_photo_bttn)
+        cameraButton.visibility = View.GONE
 
         val profileImage = requireActivity().findViewById<ImageView>(R.id.profile_image_bttn)
         profileImage.visibility = View.GONE

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.databinding.FragmentUserPhotosBinding
 import com.squareup.picasso.Picasso
@@ -27,15 +28,24 @@ class UserPhotosFragment : Fragment() {
         binding.userPhotoGrid.adapter = UserPhotoGridAdapter(UserPhotoGridAdapter.OnClickListener{
             showFullPhoto(it)
         })
+
+        //REINSTATE THE CAMERA BUTTON
+        requireActivity().findViewById<FloatingActionButton>(R.id.take_photo_bttn).visibility = View.VISIBLE
         return binding.root
     }
 
+    //take the passed UserPhoto and display the full image
     fun showFullPhoto(userPhoto: UserPhoto){
         val url = userPhoto.photoUrl
-        Picasso.get().load(url).into(user_detail_view)
-        user_detail_view.visibility=View.VISIBLE
-        user_detail_view.setOnClickListener {
-            user_detail_view.visibility = View.GONE
+        val fullPhoto = user_detail_view
+        /*Load the passed UserPhoto into our overlay imageView
+        * then set the imageView to visible and establish its own
+        * onClickListener to dismiss onClick */
+        Picasso.get().load(url).into(fullPhoto)
+
+        fullPhoto.visibility=View.VISIBLE
+        fullPhoto.setOnClickListener {
+            fullPhoto.visibility = View.GONE
         }
     }
 

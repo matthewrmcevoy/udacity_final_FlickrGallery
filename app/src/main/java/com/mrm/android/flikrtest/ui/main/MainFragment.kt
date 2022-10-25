@@ -10,12 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,12 +21,8 @@ import com.mrm.android.flikrtest.R
 import com.mrm.android.flikrtest.databinding.FragmentMainBinding
 import com.mrm.android.flikrtest.oauth.CurrentUser
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
-import kotlinx.android.synthetic.main.photo_detail_fragment.view.*
 import kotlinx.android.synthetic.main.search_history.view.*
-import java.net.URLDecoder
 
 class MainFragment : Fragment() {
 
@@ -108,8 +101,23 @@ class MainFragment : Fragment() {
             tag_search_txt.clearFocus()
         }
 
-        val cameraButton: FloatingActionButton = requireActivity().findViewById(R.id.floatingActionButton)
-        cameraButton.visibility = View.VISIBLE
+        //Display Camera if user is authorized
+        val cameraButton: FloatingActionButton = requireActivity().findViewById(R.id.take_photo_bttn)
+        if(CurrentUser.userID != "none"){
+            cameraButton.visibility = View.VISIBLE
+        }
+
+        //Display "MyPhotos" Bottom Nav Button for navigation if user is authorized
+        val myPhotosButton = bottomNavBar.menu.findItem(R.id.userPhotosFragment)
+        when(CurrentUser.userID){
+            "none" -> {
+                myPhotosButton.setVisible(false)
+            }
+            else -> {
+                myPhotosButton.setVisible(true)
+            }
+        }
+
 
         viewModel.imageUrl.observe(viewLifecycleOwner, Observer{
             val profileImage = requireActivity().findViewById<ImageView>(R.id.profile_image_bttn)
