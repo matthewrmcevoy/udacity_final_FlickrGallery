@@ -27,7 +27,7 @@ import com.mrm.android.flikrtest.oauth.CurrentUser
 import com.mrm.android.flikrtest.oauth.calcHmac
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_welcome.*
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import java.net.URLEncoder
 import kotlin.random.Random
 
@@ -36,19 +36,19 @@ class WelcomeFragment : Fragment() {
         ViewModelProvider(this).get(WelcomeViewModel::class.java)
     }
     //AUTHENTICATION
-    private val apiKey = "64187751b962051b4eb86e0c23bd7874"
-    private val secret = "d3cc409f4d513aea&"
-    private val redirectUri = "flickrtest%3A%2F%2Fcallback"
-    private val callbackN = "flickrtest://callback"
-    private val nonce = Random.nextInt(0, 99999999)
-    private val ts = System.currentTimeMillis()/1000
-    private val baseUrl ="https://www.flickr.com/services/oauth/request_token"
-    private val baseText = "GET&"+baseUrl + "&oauth_callback="+redirectUri+"&oauth_consumer_key="+apiKey+"&oauth_nonce="+nonce+"&oauth_signature_method=HMAC-SHA1&oauth_timestamp="+ts+"&oauth_version=1.0"
-    private val sortParam = "oauth_callback="+redirectUri+"&oauth_consumer_key="+apiKey+"&oauth_nonce="+nonce+"&oauth_signature_method=HMAC-SHA1&oauth_timestamp="+ts+"&oauth_version=1.0"
-    private val testSortParams = "oauth_callback="+redirectUri+"&oauth_consumer_key="+apiKey+"&oauth_nonce="+nonce+"&oauth_signature_method=HMAC-SHA1&oauth_timestamp="+ts+"&oauth_version=1.0"
-    private val testSigGen = "GET&"+ URLEncoder.encode(baseUrl)+"&"+ URLEncoder.encode(testSortParams)
-    val testSigGenOauth = calcHmac(testSigGen,secret)
-    val testSignGenOauthEnc = URLEncoder.encode(testSigGenOauth)
+//    private val apiKey = "64187751b962051b4eb86e0c23bd7874"
+//    private val secret = "d3cc409f4d513aea&"
+//    private val redirectUri = "flickrtest%3A%2F%2Fcallback"
+//    private val callbackN = "flickrtest://callback"
+//    private val nonce = Random.nextInt(0, 99999999)
+//    private val ts = System.currentTimeMillis()/1000
+//    private val baseUrl ="https://www.flickr.com/services/oauth/request_token"
+//    private val baseText = "GET&"+baseUrl + "&oauth_callback="+redirectUri+"&oauth_consumer_key="+apiKey+"&oauth_nonce="+nonce+"&oauth_signature_method=HMAC-SHA1&oauth_timestamp="+ts+"&oauth_version=1.0"
+//    private val sortParam = "oauth_callback="+redirectUri+"&oauth_consumer_key="+apiKey+"&oauth_nonce="+nonce+"&oauth_signature_method=HMAC-SHA1&oauth_timestamp="+ts+"&oauth_version=1.0"
+//    private val testSortParams = "oauth_callback="+redirectUri+"&oauth_consumer_key="+apiKey+"&oauth_nonce="+nonce+"&oauth_signature_method=HMAC-SHA1&oauth_timestamp="+ts+"&oauth_version=1.0"
+//    private val testSigGen = "GET&"+ URLEncoder.encode(baseUrl)+"&"+ URLEncoder.encode(testSortParams)
+//    val testSigGenOauth = calcHmac(testSigGen,secret)
+//    val testSignGenOauthEnc = URLEncoder.encode(testSigGenOauth)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,24 +57,16 @@ class WelcomeFragment : Fragment() {
         val binding = FragmentWelcomeBinding.inflate(inflater)
 
         binding.loginBttn.setOnClickListener {
-            val queue = Volley.newRequestQueue(requireContext())
-            val url=baseUrl + "?oauth_nonce=" + nonce + "&oauth_timestamp=" + ts +"&oauth_consumer_key=" + apiKey +"&oauth_signature_method=HMAC-SHA1" + "&oauth_version=1.0" + "&oauth_signature=" + testSignGenOauthEnc + "&oauth_callback=" + callbackN
-
-            val stringrq = StringRequest(Request.Method.GET,url, { response ->
-                Log.i("innerTest", response)
-                val respBody = response.split("&")
-                val rtrnOauthToken = respBody[1]
-                val rtrnOauthTokenSecret = respBody[2]
-                val token_secrett = rtrnOauthTokenSecret.split("=")
-                val token_secret = token_secrett[1]
-                CurrentUser.oa_token_secret = token_secret
-                Log.i("innerTest", rtrnOauthToken)
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.flickr.com/services/oauth/authorize?"+rtrnOauthToken+"&perms=delete"))
+            var authToken = ""
+            viewModel.retrieveOAuthToken()
+            viewModel.oauthToken.observe(viewLifecycleOwner, Observer {
+                authToken = it
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.flickr.com/services/oauth/authorize?"+authToken+"&perms=delete"))
                 startActivity(intent)
-            }, {
-                Log.i("innterTest","WHOOPS!")
-            })
-            queue.add(stringrq)
+                })
+
+
+
         }
         binding.guestBttn.setOnClickListener {
             viewModel.setCurrentUser("guest")

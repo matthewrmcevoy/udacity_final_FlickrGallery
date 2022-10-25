@@ -40,6 +40,12 @@ class WelcomeViewModel(application: Application) : AndroidViewModel(application)
     val skipToMain: LiveData<Int>
     get()=_skipToMain
 
+    private val _oauthToken = MutableLiveData<String>()
+    val oauthToken: LiveData<String>
+    get()=_oauthToken
+
+    val queue = Volley.newRequestQueue(application)
+
 
     init{
         /*Initialize the most recent user as the lastUser - which is
@@ -93,4 +99,41 @@ class WelcomeViewModel(application: Application) : AndroidViewModel(application)
             }
         }
     }
+
+    fun retrieveOAuthToken(){
+        var oauthToken: String = ""
+        val apiKey = "64187751b962051b4eb86e0c23bd7874"
+        val secret = "d3cc409f4d513aea&"
+        val redirectUri = "flickrtest%3A%2F%2Fcallback"
+        val callbackN = "flickrtest://callback"
+        val nonce = Random.nextInt(0, 99999999)
+        val ts = System.currentTimeMillis()/1000
+        val baseUrl ="https://www.flickr.com/services/oauth/request_token"
+        val baseText = "GET&"+baseUrl + "&oauth_callback="+redirectUri+"&oauth_consumer_key="+apiKey+"&oauth_nonce="+nonce+"&oauth_signature_method=HMAC-SHA1&oauth_timestamp="+ts+"&oauth_version=1.0"
+        val sortParam = "oauth_callback="+redirectUri+"&oauth_consumer_key="+apiKey+"&oauth_nonce="+nonce+"&oauth_signature_method=HMAC-SHA1&oauth_timestamp="+ts+"&oauth_version=1.0"
+        val testSortParams = "oauth_callback="+redirectUri+"&oauth_consumer_key="+apiKey+"&oauth_nonce="+nonce+"&oauth_signature_method=HMAC-SHA1&oauth_timestamp="+ts+"&oauth_version=1.0"
+        val testSigGen = "GET&"+ URLEncoder.encode(baseUrl)+"&"+ URLEncoder.encode(testSortParams)
+        val testSigGenOauth = calcHmac(testSigGen,secret)
+        val testSignGenOauthEnc = URLEncoder.encode(testSigGenOauth)
+
+        val url=baseUrl + "?oauth_nonce=" + nonce + "&oauth_timestamp=" + ts +"&oauth_consumer_key=" + apiKey +"&oauth_signature_method=HMAC-SHA1" + "&oauth_version=1.0" + "&oauth_signature=" + testSignGenOauthEnc + "&oauth_callback=" + callbackN
+
+        val stringrq = StringRequest(Request.Method.GET,url, { response ->
+            Log.i("innerTest", response)
+            val respBody = response.split("&")
+            val rtrnOauthToken = respBody[1]
+            val rtrnOauthTokenSecret = respBody[2]
+            val token_secrett = rtrnOauthTokenSecret.split("=")
+            val token_secret = token_secrett[1]
+            CurrentUser.oa_token_secret = token_secret
+            Log.i("innerTest", rtrnOauthToken)
+            oauthToken = rtrnOauthToken
+            _oauthToken.value = rtrnOauthToken
+        }, {
+            Log.i("innterTest","WHOOPS!")
+        })
+        queue.add(stringrq)
+
+    }
+
 }
