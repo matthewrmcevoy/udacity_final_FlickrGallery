@@ -65,7 +65,7 @@ class MainFragment : Fragment() {
                 searchText = tag_search_txt.text.toString()
                 viewModel.addSearch(searchText)
                 viewModel.updatePhotoFilter(searchText)
-                //val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history,R.id.search_tv ,viewModel.recentSearch)
+                val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history,R.id.search_tv ,viewModel.recentSearch)
                 actv.setAdapter(adapter)
 
 
@@ -81,7 +81,6 @@ class MainFragment : Fragment() {
         actv.setOnItemClickListener { adapterView, view, i, l ->
             var selectedItem = adapterView.getItemAtPosition(i) as String
             Log.i("selected", selectedItem)
-            Log.i("selected","${view.search_rmv_bttn} , $l")
             viewModel.updatePhotoFilter(selectedItem)
         }
 
@@ -91,7 +90,7 @@ class MainFragment : Fragment() {
             viewModel.addSearch(searchText)
             Log.i("Fragment","recent searches are ${viewModel.recentSearch}")
             viewModel.updatePhotoFilter(searchText)
-            //val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history, viewModel.recentSearch)
+            val adapter = ArrayAdapter<String>(requireActivity(),R.layout.search_history, viewModel.recentSearch)
             actv.setAdapter(adapter)
 
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

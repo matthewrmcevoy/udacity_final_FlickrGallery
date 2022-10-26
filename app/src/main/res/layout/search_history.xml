@@ -14,19 +14,9 @@
         android:textAlignment="viewStart"
         android:textColor="#673AB7"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/search_rmv_bttn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </TextView>
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <ImageView
-        android:id="@+id/search_rmv_bttn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
